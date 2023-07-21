@@ -14,7 +14,7 @@ importers:
       eslint:
         specifier: ^7.32.0
         version: 7.32.0
-      eslint-config-custom:
+      '@our-trips/eslint-config-custom':
         specifier: workspace:*
         version: link:packages/eslint-config-custom
       prettier:
@@ -35,7 +35,7 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      ui:
+      '@our-trips/ui':
         specifier: workspace:*
         version: link:../../packages/ui
     devDependencies:
@@ -48,10 +48,10 @@ importers:
       '@types/react-dom':
         specifier: ^18.0.7
         version: 18.2.3
-      eslint-config-custom:
+      '@our-trips/eslint-config-custom':
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
-      tsconfig:
+      '@our-trips/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
       typescript:
@@ -69,7 +69,7 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      ui:
+      '@our-trips/ui':
         specifier: workspace:*
         version: link:../../packages/ui
     devDependencies:
@@ -82,10 +82,10 @@ importers:
       '@types/react-dom':
         specifier: ^18.0.7
         version: 18.2.3
-      eslint-config-custom:
+      '@our-trips/eslint-config-custom':
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
-      tsconfig:
+      '@our-trips/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
       typescript:
@@ -120,13 +120,13 @@ importers:
       eslint:
         specifier: ^7.32.0
         version: 7.32.0
-      eslint-config-custom:
+      '@our-trips/eslint-config-custom':
         specifier: workspace:*
         version: link:../eslint-config-custom
       react:
         specifier: ^17.0.2
         version: 17.0.2
-      tsconfig:
+      '@our-trips/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       typescript:
