@@ -3,23 +3,34 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "pnpm with-env next dev",
+    "build": "pnpm with-env next build",
+    "start": "pnpm with-env next start",
+    "lint": "next lint",
+    "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "next": "^13.4.1",
+    "@our-trips/ui": "workspace:*",
+    "@t3-oss/env-nextjs": "^0.6.0",
+    "@tanstack/react-query": "^4.32.0",
+    "@trpc/client": "^10.35.0",
+    "@trpc/next": "^10.35.0",
+    "@trpc/react-query": "^10.35.0",
+    "@trpc/server": "^10.35.0",
+    "next": "^13.4.11",
+    "next-auth": "^4.22.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@our-trips/ui": "workspace:*"
+    "superjson": "^1.13.1",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@our-trips/eslint-config-custom": "workspace:*",
+    "@our-trips/tsconfig": "workspace:*",
     "@types/node": "^17.0.12",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
-    "@our-trips/eslint-config-custom": "workspace:*",
-    "@our-trips/tsconfig": "workspace:*",
+    "dotenv-cli": "^7.2.1",
     "typescript": "^4.5.3"
   }
 }

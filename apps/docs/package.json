@@ -9,17 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "^13.4.1",
+    "@our-trips/ui": "workspace:*",
+    "next": "^13.4.11",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@our-trips/ui": "workspace:*"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@our-trips/eslint-config-custom": "workspace:*",
+    "@our-trips/tsconfig": "workspace:*",
     "@types/node": "^17.0.12",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
-    "@our-trips/eslint-config-custom": "workspace:*",
-    "@our-trips/tsconfig": "workspace:*",
     "typescript": "^4.5.3"
   }
 }
