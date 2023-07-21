@@ -1,0 +1,9 @@
+{
+  "extends": "@our-trips/tsconfig/base.json",
+  "include": ["*.ts", "env.mjs"],
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true
+  }
+}
