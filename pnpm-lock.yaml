@@ -60,6 +60,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@our-trips/api':
+        specifier: workspace:*
+        version: link:../../packages/api
       '@our-trips/auth':
         specifier: workspace:*
         version: link:../../packages/auth
@@ -137,6 +140,37 @@ importers:
         specifier: ^4.5.3
         version: 4.9.5
 
+  packages/api:
+    dependencies:
+      '@our-trips/auth':
+        specifier: workspace:*
+        version: link:../auth
+      '@trpc/client':
+        specifier: ^10.34.0
+        version: 10.35.0(@trpc/server@10.35.0)
+      '@trpc/server':
+        specifier: ^10.34.0
+        version: 10.35.0
+      superjson:
+        specifier: 1.9.1
+        version: 1.9.1
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
+    devDependencies:
+      '@our-trips/eslint-config-custom':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      '@our-trips/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      eslint:
+        specifier: ^8.45.0
+        version: 8.45.0
+      typescript:
+        specifier: ^4.5.3
+        version: 4.9.5
+
   packages/auth:
     dependencies:
       '@t3-oss/env-nextjs':
@@ -148,6 +182,9 @@ importers:
       next-auth:
         specifier: ^4.22.3
         version: 4.22.3(next@13.4.11)(react-dom@18.2.0)(react@18.2.0)
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
     devDependencies:
       '@our-trips/eslint-config-custom':
         specifier: workspace:*
@@ -3740,6 +3777,13 @@ packages:
 
   /superjson@1.13.1:
     resolution: {integrity: sha512-AVH2eknm9DEd3qvxM4Sq+LTCkSXE2ssfh1t11MHMXyYXFQyQ1HLgVvV+guLTsaQnJU3gnaVo34TohHPulY/wLg==}
+    engines: {node: '>=10'}
+    dependencies:
+      copy-anything: 3.0.5
+    dev: false
+
+  /superjson@1.9.1:
+    resolution: {integrity: sha512-oT3HA2nPKlU1+5taFgz/HDy+GEaY+CWEbLzaRJVD4gZ7zMVVC4GDNFdgvAZt6/VuIk6D2R7RtPAiCHwmdzlMmg==}
     engines: {node: '>=10'}
     dependencies:
       copy-anything: 3.0.5

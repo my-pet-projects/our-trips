@@ -9,6 +9,8 @@ import { env } from "./env.mjs";
 import Google from "next-auth/providers/google";
 import { DefaultJWT } from "next-auth/jwt";
 
+export type { Session } from "next-auth";
+
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
  * object and keep type safety.

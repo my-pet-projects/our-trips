@@ -1,5 +1,5 @@
 {
-  "name": "@our-trips/auth",
+  "name": "@our-trips/api",
   "version": "0.1.0",
   "main": "./index.ts",
   "types": "./index.ts",
@@ -11,9 +11,10 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@t3-oss/env-nextjs": "^0.6.0",
-    "next": "^13.4.11",
-    "next-auth": "^4.22.3",
+    "@our-trips/auth": "workspace:*",
+    "@trpc/client": "^10.34.0",
+    "@trpc/server": "^10.34.0",
+    "superjson": "1.9.1",
     "zod": "^3.21.4"
   },
   "devDependencies": {
