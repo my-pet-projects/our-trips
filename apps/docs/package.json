@@ -15,11 +15,19 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@our-trips/eslint-config-custom": "workspace:*",
+    "@our-trips/eslint-config": "workspace:*",
     "@our-trips/tsconfig": "workspace:*",
     "@types/node": "^17.0.12",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "typescript": "^4.5.3"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@our-trips/eslint-config/base",
+      "@our-trips/eslint-config/nextjs",
+      "@our-trips/eslint-config/react"
+    ]
   }
 }

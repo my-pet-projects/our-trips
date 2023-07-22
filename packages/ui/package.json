@@ -12,9 +12,15 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "eslint": "^7.32.0",
-    "@our-trips/eslint-config-custom": "workspace:*",
+    "@our-trips/eslint-config": "workspace:*",
     "react": "^17.0.2",
     "@our-trips/tsconfig": "workspace:*",
     "typescript": "^4.5.2"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@our-trips/eslint-config/base"
+    ]
   }
 }
