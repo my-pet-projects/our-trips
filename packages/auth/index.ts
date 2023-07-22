@@ -1,13 +1,10 @@
-import { type GetServerSidePropsContext } from "next";
-import {
-  getServerSession,
-  type NextAuthOptions,
-  type DefaultSession,
-  Session,
-} from "next-auth";
-import { env } from "./env.mjs";
+import type { GetServerSidePropsContext } from "next";
+import { getServerSession } from "next-auth";
+import type { DefaultSession, NextAuthOptions } from "next-auth";
+import type { DefaultJWT } from "next-auth/jwt";
 import Google from "next-auth/providers/google";
-import { DefaultJWT } from "next-auth/jwt";
+
+import { env } from "./env.mjs";
 
 export type { Session } from "next-auth";
 

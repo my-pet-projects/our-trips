@@ -8,10 +8,10 @@
  */
 import { initTRPC, TRPCError } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
-import { type Session } from "@our-trips/auth";
 import superjson from "superjson";
 import { ZodError } from "zod";
-import { getServerAuthSession } from "@our-trips/auth";
+
+import { getServerAuthSession, type Session } from "@our-trips/auth";
 
 /**
  * 1. CONTEXT

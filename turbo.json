@@ -13,6 +13,7 @@
     }
   },
   "globalEnv": [
+    "PORT",
     "NEXTAUTH_URL",
     "NODE_ENV",
     "SKIP_ENV_VALIDATION",

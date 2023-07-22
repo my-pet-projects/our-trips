@@ -7,7 +7,8 @@
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
 import superjson from "superjson";
-import { type AppRouter } from "@our-trips/api";
+
+import type { AppRouter } from "@our-trips/api";
 
 const getBaseUrl = () => {
   if (typeof window !== "undefined") return ""; // browser should use relative url
@@ -17,7 +18,7 @@ const getBaseUrl = () => {
 
 /** A set of type-safe react-query hooks for your tRPC API. */
 export const api = createTRPCNext<AppRouter>({
-  // @ts-expect-error
+  // @ts-expect-error don't know how to fix yet
   config() {
     return {
       /**
