@@ -57,6 +57,12 @@ export const authOptions: NextAuthOptions = {
     Google({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          scope:
+            "openid https://www.googleapis.com/auth/photoslibrary https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
+        },
+      },
     }),
   ],
   debug: false,
