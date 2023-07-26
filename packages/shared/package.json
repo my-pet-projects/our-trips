@@ -1,5 +1,5 @@
 {
-  "name": "@our-trips/api",
+  "name": "@our-trips/shared",
   "version": "0.1.0",
   "main": "./index.ts",
   "types": "./index.ts",
@@ -9,14 +9,6 @@
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
     "type-check": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@our-trips/auth": "workspace:*",
-    "@our-trips/shared": "workspace:*",
-    "@trpc/client": "^10.34.0",
-    "@trpc/server": "^10.34.0",
-    "superjson": "1.9.1",
-    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@our-trips/eslint-config": "workspace:*",
@@ -29,5 +21,9 @@
     "extends": [
       "@our-trips/eslint-config/base"
     ]
+  },
+  "dependencies": {
+    "pino": "^8.14.1",
+    "pino-pretty": "^10.2.0"
   }
 }
