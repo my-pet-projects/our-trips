@@ -210,6 +210,9 @@ importers:
       '@our-trips/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@our-trips/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@our-trips/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig

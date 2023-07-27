@@ -1,10 +1,11 @@
 import type { GetServerSidePropsContext } from "next";
 import { getServerSession } from "next-auth";
 import type { DefaultSession, NextAuthOptions } from "next-auth";
-import type { DefaultJWT } from "next-auth/jwt";
+import type { DefaultJWT, JWT } from "next-auth/jwt";
 import Google from "next-auth/providers/google";
 
 import { env } from "./env.mjs";
+import { refreshAccessToken } from "./refreshToken";
 
 export type { Session } from "next-auth";
 
@@ -19,6 +20,8 @@ declare module "next-auth" {
     user: DefaultSession["user"] & {
       id: string;
       token: string;
+    } & {
+      forceRefreshNeeded: boolean;
     };
   }
 }
@@ -26,8 +29,18 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
   interface JWT extends DefaultJWT {
     accessToken?: string;
+    accessTokenExpires?: number;
+    refreshToken?: string;
+    isInvalid?: boolean;
   }
 }
+
+const scopes = [
+  "openid",
+  "https://www.googleapis.com/auth/photoslibrary",
+  "https://www.googleapis.com/auth/userinfo.email",
+  "https://www.googleapis.com/auth/userinfo.profile",
+];
 
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
@@ -36,11 +49,16 @@ declare module "next-auth/jwt" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    jwt: ({ token, account }) => {
+    jwt: async ({ token, account }) => {
       if (account) {
         token.accessToken = account.access_token;
+        token.accessTokenExpires = (account.expires_at ?? 0) * 1000;
+        token.refreshToken = account.refresh_token;
       }
-      return token;
+      if (isExpired(token)) {
+        return token;
+      }
+      return await refreshAccessToken(token);
     },
     session: ({ session, token }) => {
       return {
@@ -50,6 +68,7 @@ export const authOptions: NextAuthOptions = {
           id: token.sub,
           token: token.accessToken,
         },
+        forceRefreshNeeded: token.isInvalid ?? false,
       };
     },
   },
@@ -59,13 +78,15 @@ export const authOptions: NextAuthOptions = {
       clientSecret: env.GOOGLE_CLIENT_SECRET,
       authorization: {
         params: {
-          scope:
-            "openid https://www.googleapis.com/auth/photoslibrary https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
+          access_type: "offline",
+          response_type: "code",
+          prompt: "consent",
+          scope: scopes.join(" "),
         },
       },
     }),
   ],
-  debug: false,
+  debug: true,
 };
 
 /**
@@ -79,3 +100,10 @@ export const getServerAuthSession = (ctx: {
 }) => {
   return getServerSession(ctx.req, ctx.res, authOptions);
 };
+
+function isExpired(token: JWT) {
+  return (
+    token.accessTokenExpires !== undefined &&
+    Date.now() < token.accessTokenExpires
+  );
+}
