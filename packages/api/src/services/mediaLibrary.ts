@@ -1,3 +1,5 @@
+import { util } from "zod";
+
 import { AppError } from "@our-trips/shared";
 
 export class MediaLibrary {
@@ -18,12 +20,45 @@ export class MediaLibrary {
       });
     }
   }
+
+  public async downloadMediaItem(items: MediaItem[]) {
+    for (const item of items) {
+      const url = `${item.baseUrl}=d`;
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw await AppError.fromResponse(response);
+      }
+
+      const result = await response.blob();
+      console.log("res", result);
+      item.blob = result;
+    }
+  }
+
   /**
    * @throws Will throw an error if the HTTP call will fail.
    */
   private async doFetch(token: string) {
     const searchParams = {
-      pageSize: 100,
+      pageSize: 10,
+      filters: {
+        dateFilter: {
+          ranges: [
+            {
+              startDate: {
+                year: 2023,
+                month: 6,
+                day: 12,
+              },
+              endDate: {
+                year: 2023,
+                month: 6,
+                day: 13,
+              },
+            },
+          ],
+        },
+      },
     };
 
     const host = "https://photoslibrary.googleapis.com";
@@ -67,6 +102,7 @@ export interface MediaItem {
   mimeType: string;
   mediaMetadata: MediaMetadata;
   filename: string;
+  blob: Blob;
 }
 
 export interface MediaMetadata {
