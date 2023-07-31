@@ -4,9 +4,10 @@ import { api } from "@/utils/api";
 
 export default function Page() {
   const { data: result, error } = api.trip.fetchMedia.useQuery();
+  const { data: trips, error: tripError } = api.trip.all.useQuery();
 
-  console.log(result);
-  console.log(error);
+  console.log(result, error);
+  console.log(trips, tripError);
 
   return (
     <>
