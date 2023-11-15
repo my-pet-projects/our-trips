@@ -1,12 +1,14 @@
-import type { Config } from "drizzle-kit";
+import { defineConfig } from "drizzle-kit";
 
 import { env } from "./env.mjs";
 
-export default {
+export default defineConfig({
   schema: "./drizzle/*",
   out: "./migrations",
   driver: "mysql2",
   dbCredentials: {
-    connectionString: env.DATABASE_URL + '?ssl={"rejectUnauthorized":true}',
+    uri: env.DATABASE_URL + '?ssl={"rejectUnauthorized":true}',
   },
-} satisfies Config;
+  verbose: true,
+  strict: true,
+});

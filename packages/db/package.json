@@ -15,18 +15,19 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@t3-oss/env-nextjs": "^0.6.0",
-    "@planetscale/database": "^1.8.0",
-    "drizzle-orm": "^0.27.2"
+    "@planetscale/database": "^1.11.0",
+    "@t3-oss/env-nextjs": "^0.7.1",
+    "drizzle-orm": "^0.29.0",
+    "mysql2": "^3.6.3"
   },
   "devDependencies": {
     "@our-trips/eslint-config": "workspace:*",
     "@our-trips/shared": "workspace:*",
     "@our-trips/tsconfig": "workspace:*",
-    "eslint": "^8.45.0",
-    "drizzle-kit": "^0.19.8",
     "dotenv-cli": "^7.2.1",
-    "typescript": "^4.5.3"
+    "drizzle-kit": "^0.20.2",
+    "eslint": "^8.45.0",
+    "typescript": "^5.2.2"
   },
   "eslintConfig": {
     "root": true,

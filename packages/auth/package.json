@@ -11,7 +11,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@t3-oss/env-nextjs": "^0.6.0",
+    "@t3-oss/env-nextjs": "^0.7.1",
     "next": "^13.4.11",
     "next-auth": "^4.22.3",
     "zod": "^3.21.4"
@@ -21,7 +21,7 @@
     "@our-trips/shared": "workspace:*",
     "@our-trips/tsconfig": "workspace:*",
     "eslint": "^8.45.0",
-    "typescript": "^4.5.3"
+    "typescript": "^5.2.2"
   },
   "eslintConfig": {
     "root": true,
