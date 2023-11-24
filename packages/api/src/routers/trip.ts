@@ -1,17 +1,21 @@
 import { TRPCError } from "@trpc/server";
 
-import { tripDb } from "@our-trips/db";
+import { trip } from "@our-trips/db";
 import { AppError, getStatusCodeFromError } from "@our-trips/shared";
 import logger from "@our-trips/shared/logger";
 
-import type { MediaItemResult } from "../services/mediaLibrary";
+import type {
+  MediaItem,
+  MediaItemResult,
+  MediaItemsByDate,
+} from "../services/mediaLibrary";
 import { MediaLibrary } from "../services/mediaLibrary";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const tripRouter = createTRPCRouter({
   all: publicProcedure.query(async ({ ctx }) => {
     try {
-      return await ctx.db.select().from(tripDb);
+      return await ctx.db.select().from(trip);
     } catch (err) {
       logger.error(err, "Failed to fetch trips");
       throw new TRPCError({
@@ -29,9 +33,9 @@ export const tripRouter = createTRPCRouter({
     }
 
     const library = new MediaLibrary();
-    let mediaItemResult = {} as MediaItemResult;
+    let mediaItems = [] as MediaItemsByDate[];
     try {
-      mediaItemResult = await library.fetchMediaItems(ctx.session.user.token);
+      mediaItems = await library.fetchMediaItems(ctx.session.user.token);
     } catch (err) {
       logger.error(err, "Failed to get media items from Photos API");
       if (err instanceof AppError) {
@@ -58,6 +62,6 @@ export const tripRouter = createTRPCRouter({
     //   });
     // }
 
-    return mediaItemResult;
+    return mediaItems;
   }),
 });

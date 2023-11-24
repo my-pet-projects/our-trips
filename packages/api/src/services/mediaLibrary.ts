@@ -8,7 +8,39 @@ export class MediaLibrary {
    */
   public async fetchMediaItems(token: string) {
     try {
-      return await this.doFetch(token);
+      let mediaItems: MediaItem[] = [];
+      let hasNextPage = true;
+      let nextPageToken = "";
+      while (hasNextPage) {
+        const result = await this.doFetch(token, nextPageToken);
+        mediaItems = [...mediaItems, ...result.mediaItems];
+        nextPageToken = result.nextPageToken ?? "";
+        hasNextPage = !!result.nextPageToken;
+      }
+
+      const dateMap = new Map<string, MediaItem[]>();
+      for (const mediaItem of mediaItems) {
+        const creationTime = new Date(mediaItem.mediaMetadata.creationTime);
+        const date = new Date(
+          Date.UTC(
+            creationTime.getUTCFullYear(),
+            creationTime.getUTCMonth(),
+            creationTime.getUTCDate(),
+          ),
+        ).toISOString();
+        let dateList = dateMap.get(date);
+        if (!dateList) {
+          dateList = [];
+          dateMap.set(date, dateList);
+        }
+        dateList.push(mediaItem);
+      }
+
+      const itemsByDate = Array.from(dateMap).map((item) => {
+        return { date: item[0], mediaItems: item[1] } as MediaItemsByDate;
+      });
+
+      return itemsByDate;
     } catch (err) {
       if (err instanceof AppError) {
         throw err;
@@ -38,9 +70,10 @@ export class MediaLibrary {
   /**
    * @throws Will throw an error if the HTTP call will fail.
    */
-  private async doFetch(token: string) {
+  private async doFetch(token: string, pageToken?: string) {
     const searchParams = {
-      pageSize: 10,
+      pageSize: 100,
+      pageToken: pageToken,
       filters: {
         dateFilter: {
           ranges: [
@@ -61,6 +94,8 @@ export class MediaLibrary {
       },
     };
 
+    console.log(searchParams);
+
     const host = "https://photoslibrary.googleapis.com";
     const url = `${host}/v1/mediaItems:search`;
     const response = await fetch(url, {
@@ -80,6 +115,11 @@ export class MediaLibrary {
   }
 }
 
+export interface MediaItemsByDate {
+  date: string;
+  mediaItems: MediaItem[];
+}
+
 export interface MediaItemErrorResult {
   error: Error;
 }
@@ -92,7 +132,7 @@ export interface Error {
 
 export interface MediaItemResult {
   mediaItems: MediaItem[];
-  nextPageToken: string;
+  nextPageToken?: string;
 }
 
 export interface MediaItem {
@@ -106,10 +146,11 @@ export interface MediaItem {
 }
 
 export interface MediaMetadata {
-  creationTime: Date;
+  creationTime: string;
   width: string;
   height: string;
   photo: Photo;
+  video: Video;
 }
 
 export interface Photo {
@@ -119,4 +160,9 @@ export interface Photo {
   apertureFNumber: number;
   isoEquivalent: number;
   exposureTime: string;
+}
+
+export interface Video {
+  fps: number;
+  status: string;
 }
