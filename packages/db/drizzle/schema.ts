@@ -179,9 +179,9 @@ export const trip = mysqlTable(
   {
     id: varchar("id", { length: 191 }).notNull(),
     name: varchar("name", { length: 191 }).notNull(),
-    // startDate: datetime("startDate", { mode: "string", fsp: 6 }),
-    // endDate: datetime("endDate", { mode: "string", fsp: 6 }),
-    // oldId: int("oldId"),
+    startDate: datetime("startDate", { mode: "string", fsp: 6 }),
+    endDate: datetime("endDate", { mode: "string", fsp: 6 }),
+    oldId: int("oldId"),
   },
   (table) => {
     return {

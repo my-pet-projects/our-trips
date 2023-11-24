@@ -4,12 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dialog, Transition } from "@headlessui/react";
 import { FaBriefcase, FaHome, FaTimes } from "react-icons/fa";
+import type { IconType } from "react-icons/lib/esm/iconBase";
 
 import { classNames } from "@/utils/client";
 
 const navigation = [
-  { name: "Home", href: "/", icon: FaHome },
-  { name: "Trips", href: "/admin/trips", icon: FaBriefcase },
+  { name: "Home", href: "/", icon: FaHome as IconType },
+  { name: "Trips", href: "/admin/trips", icon: FaBriefcase as IconType },
 ];
 
 const SideBar = ({
